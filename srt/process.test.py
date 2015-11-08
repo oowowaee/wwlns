@@ -72,6 +72,33 @@ Come back!
     self.assertEqual(output, ['Stu, where are you going? Come back!'])
 
 
+  def test_quotes(self):
+    input_text = """692
+01:00:55,227 --> 01:00:58,400
+How do you say ''sugar''
+in your language?"""
+    output = split_lines(input_text, [])
+    self.assertEqual(output, ['How do you say sugar in your language?'])
+
+
+  def test_quotes_at_boundary(self):
+    input_text = """508
+00:40:25,810 --> 00:40:29,233
+''Deputy director, lnternal Security.''
+Very impressive."""
+    output = split_lines(input_text, [])
+    self.assertEqual(output, ['Deputy director, lnternal Security. Very impressive.'])
+
+
+  def test_contractions(self):
+    input_text = """1
+00:01:44,542 --> 00:01:46,379
+-Mr. Mills, how are you?
+-l'm fine."""
+    output = split_lines(input_text, [])
+    self.assertEqual(output, ['Mr. Mills, how are you?',  'l\'m fine.'])
+
+
   def test_counting(self):
     input_text = """449
 00:37:33,543 --> 00:37:35,669
