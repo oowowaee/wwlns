@@ -87,7 +87,7 @@ in your language?"""
 ''Deputy director, lnternal Security.''
 Very impressive."""
     output = split_lines(input_text, [])
-    self.assertEqual(output, ['Deputy director, lnternal Security. Very impressive.'])
+    self.assertEqual(output, ['Deputy director, Internal Security. Very impressive.'])
 
 
   def test_contractions(self):
@@ -96,7 +96,7 @@ Very impressive."""
 -Mr. Mills, how are you?
 -l'm fine."""
     output = split_lines(input_text, [])
-    self.assertEqual(output, ['Mr. Mills, how are you?',  'l\'m fine.'])
+    self.assertEqual(output, ['Mr. Mills, how are you?',  'I\'m fine.'])
 
 
   def test_counting(self):
@@ -107,6 +107,73 @@ Very impressive."""
     output = split_lines(input_text, [])
     self.assertEqual(output, ['26... 27...'])
 
+
+  def test_ls_to_is(self):
+    input_text = """526
+00:24:54,238 --> 00:24:56,910
+Well, if l'd had the number
+where you were staying...
+"""
+    output = split_lines(input_text, [])
+    self.assertEqual(output, ['Well, if I\'d had the number where you were staying...'])
+
+
+  def test_ls_to_is2(self):
+    input_text = """101
+00:07:43,844 --> 00:07:47,602
+-lt'll be perfect. Just like old times.
+-Better. No one gets killed.
+"""
+    output = split_lines(input_text, [])
+    self.assertEqual(output, ['It\'ll be perfect. Just like old times.', 'Better. No one gets killed.'])
+
+
+  def test_ls_to_is3(self):
+    input_text = """104
+00:08:22,046 --> 00:08:24,676
+Ma'am, if you don't mind,
+l suggest you keep moving.
+"""
+    output = split_lines(input_text, [])
+    self.assertEqual(output, ['Ma\'am, if you don\'t mind, I suggest you keep moving.'])
+
+
+  def sanity_check(self):
+    input_text="""65
+00:06:12,704 --> 00:06:15,543
+-How's Kimmy?
+-Good. She's good.
+
+66
+00:06:15,668 --> 00:06:17,839
+Yeah? She sleep over yet?
+
+67
+00:06:18,090 --> 00:06:20,595
+Well, let's say we're working on it.
+"""
+    output = split_lines(input_text, [])
+    self.assertEqual(output, ['How\'s Kimmy?', 'Good.  She\'s good.', 'Yeah?  She sleep over yet?', 'Well, let\'s just say we\'re working on it.'])
+
+@unittest.skip('Sentence tests')
+class TestSentenceMethods(unittest.TestCase):
+  def test_sentence_breakup(self):
+    input_text="""406
+00:30:32,040 --> 00:30:33,220
+Their relationship
+
+407
+00:30:33,320 --> 00:30:35,180
+was mostly centered
+around their daughter.
+
+408
+00:30:35,280 --> 00:30:36,740
+But I think...
+
+409
+00:30:36,840 --> 00:30:38,740
+he wanted more than friendship."""
 
 if __name__ == '__main__':
     unittest.main()
