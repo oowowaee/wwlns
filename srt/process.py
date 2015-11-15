@@ -1,6 +1,7 @@
 from __future__ import division
 import nltk, re, pprint, glob, sys
 from nltk.tokenize import RegexpTokenizer
+import codecs
 
 def split_lines(raw, out):
 	outlines = []
@@ -38,14 +39,14 @@ if __name__ == '__main__':
 		files = [sys.argv[1]]
 
 	for f in files:
-		infile = open(f)
+		infile = codecs.open(f, "r", "utf-8")
 		raw = infile.read()
 		filename = re.sub('(\.\/)|(\.srt)', '', infile.name)
 		outname = './processed/' + filename + '.processed.srt'
 
 		#output file where each line is theoretically a speaker
 		out = split_lines(raw, [])
-		outfile = open(outname, 'w+')
+		outfile = codecs.open(outname, 'w+', "utf-8")
 		for l in out:
 			outfile.write((l + "\n"))
 				#.decode('latin-1').encode('utf-8'))

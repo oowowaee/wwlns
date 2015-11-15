@@ -155,9 +155,54 @@ Well, let's say we're working on it.
     output = split_lines(input_text, [])
     self.assertEqual(output, ['How\'s Kimmy?', 'Good.  She\'s good.', 'Yeah?  She sleep over yet?', 'Well, let\'s just say we\'re working on it.'])
 
+
+  @unittest.skip('Not implemented')
+  def test_dashes_mid_sentence(self):
+    input_text="""782
+01:09:23,756 --> 01:09:28,494
+<i>All units respond to a code one. Positive
+I.D. on the I-278 shooting suspects.</i>"""
+
+
+  @unittest.skip('Not implemented')
+  def test_dashes_and_speaker_ident(self):
+    input_text="""24
+00:03:02,760 --> 00:03:04,530
+- MAN 1: Is everybody okay?
+- (GUNSHOTS)
+
+25
+00:03:05,000 --> 00:03:06,406
+MAN 2: Get down!"""
+
+
+  @unittest.skip('Not implemented')
+  def test_empty_line_is_erased(self):
+    input_text="""15
+00:01:56,960 --> 00:01:58,161
+(SIGHS)"""
+
+  @unittest.skip('Not implemented')
+  def test_subtitler_data_is_removed(self):
+    input_text="""1
+00:00:04,042 --> 00:00:04,042
+23.976
+
+2
+00:00:04,209 --> 00:00:14,427
+.............uFkRip............."""
+
+
+  @unittest.skip('Not implemented')
+  def test_subtitler_data_is_removed2(self):
+    input_text="""704
+01:09:12,579 --> 01:09:14,622
+Subtitles by Visiontext"""
+
+
 @unittest.skip('Sentence tests')
 class TestSentenceMethods(unittest.TestCase):
-  def test_sentence_breakup(self):
+  def test_multiple_sentences(self):
     input_text="""406
 00:30:32,040 --> 00:30:33,220
 Their relationship
@@ -174,6 +219,16 @@ But I think...
 409
 00:30:36,840 --> 00:30:38,740
 he wanted more than friendship."""
+
+  def test_multiline_sentences2(self):
+    input_text="""647
+00:55:18,245 --> 00:55:19,621
+Tell me, McGregor,
+
+648
+00:55:19,747 --> 00:55:22,708
+is this matter of honour
+concerning your wife?"""
 
 if __name__ == '__main__':
     unittest.main()
