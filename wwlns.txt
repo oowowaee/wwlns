@@ -1,0 +1,64 @@
+Tuesday October 13th
+
+--install nltk
+--sublime3 timestamp?
+--format srt > 1 speaker per line
+Fixed an issue where output filenames were not always being set properly.
+Added the ability to manually specify the input files.
+
+Issues:
+1)	448
+	00:37:31,541 --> 00:37:32,374
+	BRYAN: 25...
+
+	449
+	00:37:33,543 --> 00:37:35,669
+	26... 27...
+
+	=>
+
+	empty lines.
+
+2) One, two, three. (TICKING)
+3) BRYAN:
+4) "Speeches" cannot be broken up properly (see beginning of taken2.srt file)
+
+
+Wednesday October 14th
+Fixed an issue where the last line of text was not being kept
+Added test cases
+
+
+Saturday October 17th
+	-Posessives should be their own word
+X.	-need to strip punctuation (')
+X. 	-append files with total words, total unique words
+X. 	-match accross cases
+?.	-remove stop words
+?.	-stem words
+?. 	-remove proper names
+
+
+o, 1 (taken 1)
+u, 1 (taken 1)
+u, 11 (taken 2)
+Also, the Is in taken one are all ls
+Lemmatizer seems to be converting 'us' => 'u'
+
+Saturday November 7th
+Brief interlude to another project, extracting features from Best Pictures Nominees for the oscars.
+
+x, 1 	(taken 2)
+rã, 1 	(taken 1)
+m, 1 	(taken 1)
+
+	We should add a debugging flag to extract features so we can see where words came from, and build our own frequency counter.
+X.	I think we can assume if the string starts with an l and is followed by [space, "'", consonant] it should be 		an uppercase I.
+
+Features:
+	contractions
+	where/who/what words
+
+
+Saturday November 14th
+	Fixed an issue where one of the tests was failing

@@ -9,7 +9,6 @@ import getopt
 import codecs
 import json
 
-#http://stackoverflow.com/questions/27212912/python-nltk-sent-tokenize-error-ascii-codec-cant-decode
 def calculate_freqs(data, toExclude):
 	#lemmatizer = WordNetLemmatizer()
 	stopwords = nltk.corpus.stopwords.words('english')
@@ -24,12 +23,15 @@ def calculate_freqs(data, toExclude):
  		words = [w for s in sents for w in tokenizer.tokenize(s)]
  	return words
 
+
 #Given frequency dictionary input, return the average word length
 def avg_word_len(input, total_words):
 	pairs = out.items()
 	avg = sum([len(key) * value for key, value in pairs])/total_words
 	return avg
 
+
+#Return information about the number of Names encountered in the text
 def get_tagged_info(raw, names):
 	name_count = 0
 	names_found = []
@@ -44,6 +46,8 @@ def get_tagged_info(raw, names):
 
 	return name_count, names_found
 
+
+#Process the command line options
 def build_opts(args):
 	output = 'freqs'
 	exclude = False
@@ -76,6 +80,8 @@ def build_opts(args):
 
 	return length, output, files, exclude
 
+
+#Build the output filename based on the type of inputs and the args passed
 def get_output_filename(current_name, output_type, exclude):
 	fnames = ['', '.excluding_stop_words']
 
@@ -93,6 +99,7 @@ def get_output_filename(current_name, output_type, exclude):
 
 	return outname
 
+
 if __name__ == '__main__':
 
 	names = pickle.load(open('./../../corpora/names.p', 'rb'))
@@ -108,16 +115,13 @@ if __name__ == '__main__':
 		raw = infile.read()
 		filename = re.sub('(\.\/processed\/)|(\.processed.srt)', '', infile.name)
 
-		src = calculate_freqs(raw, exclude)
-		out_filename = get_output_filename(filename, output_type, exclude)
-
-	 	out = nltk.FreqDist(src) 
+		out = nltk.FreqDist(calculate_freqs(raw, exclude))
 
 		total_words = sum(out.values())
 		unique_words = len(out.keys())
 
-		#Emit a file with the counts of each occurance of each word
-		outfile = open(out_filename, 'w+')
+		out_filename = get_output_filename(filename, output_type, exclude)
+		outfile = codecs.open(out_filename, 'w+', 'utf-8')
 
 		if output_type == 'json':
 			outdata = []
@@ -130,6 +134,7 @@ if __name__ == '__main__':
 
 		for key, value in sorted(out.items(), key=lambda x: x[1], reverse=True)[:length]:
 			if output_type == 'freqs':
+				#Emit a file with the counts of each occurance of each word
 				outfile.write("{0}, {1} \n".format(key, value))
 			elif output_type == 'json':
 				outdata.append('{{"name": "{0}", "size":{1}}}'.format(key, value))
